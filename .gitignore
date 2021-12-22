@@ -91,3 +91,4 @@ iOSInjectionProject/
 *.xcodeproj
 *.xcworkspace
 *.generated.swift
+Pods/

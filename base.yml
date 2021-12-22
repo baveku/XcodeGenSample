@@ -1,0 +1,36 @@
+options:
+  bundleIdPrefix: dev.josbach
+targetTemplates:
+  Framework:
+    platform: iOS
+    deploymentTarget: "10.0"
+    type: framework
+    group: ["Submodules"]
+    sources:
+      - path: "Submodules/${target_name}"
+        group: Submodules
+    info:
+      path: shared/Info.framework.plist
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: ${bundleIdPrefix}.${target_name}
+      PRODUCT_NAME: ${target_name}
+  UnitTest:
+    type: bundle.unit-test
+    info:
+      path: shared/info.unittest.info
+    platform: iOS
+    deploymentTarget: "10.0"
+  FrameworkUnitTest:
+    type: bundle.unit-test
+    info:
+      path: shared/info.unittest.info
+    platform: iOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: "Submodules/${target_name}/Tests"
+        group: Submodules/${target_name}
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: dev.josbach.${target_name}.tests
+      PRODUCT_NAME: ${target_name}Test
+    dependencies:
+      - target: ${target_name}

@@ -1,0 +1,46 @@
+name: XcodeGen-Sample
+include:
+  - base.yml
+options:
+  bundleIdPrefix: dev.josbach
+targets:
+  XcodeGenSample:
+    type: application
+    platform: iOS
+    info:
+      path: XcodeGen-Sample/Info.plist
+      properties:
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UILaunchStoryboardName: LaunchScreen
+    entitlements:
+      path: App/App.entitlements
+      properties:
+        com.apple.security.application-groups: group.com.app
+    deploymentTarget: "10.0"
+    sources: [XcodeGen-Sample]
+    settings:
+      configs:
+        Debug:
+          HELLOWORLD: bac+qwe
+        Release:
+          HELLOWORLD: abcabc
+    dependencies:
+      - target: AppResources
+  XcodeGenSampleTests:
+    templates:
+      - UnitTest
+    sources: [XcodeGen-SampleTests]
+    dependency:
+      target: XcodeGenSample
+  AppResources:
+    templates:
+      - Framework
+    templateAttributes:
+      frameworkName: AppResources
+    preBuildScripts:
+      - path: "/bin/sh"
+        name: "R.swift"
+        script: |
+          "$PODS_ROOT/R.swift/rswift" generate --accessLevel public --hostingBundle dev.josbach.XcodeGenSample "${PROJECT_DIR}/Submodules/AppResources/R.generated.swift"
+        outputFiles:
+          - Submodules/AppResources/R.generated.swift

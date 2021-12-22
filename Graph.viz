@@ -1,0 +1,5 @@
+digraph {
+  XcodeGenSample [shape=box]
+  AppResources [label=AppResources shape=box]
+  XcodeGenSample -> AppResources [style=dashed]
+}
